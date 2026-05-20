@@ -18,8 +18,11 @@ public class EnquiryService {
 
     public Enquiry saveEnquiry(Enquiry enquiry) {
 
-        enquiry.setDepartment(
-                enquiry.getSourceWebsite());
+    	String website = enquiry.getSourceWebsite();
+
+    	website = website.replace("www.", "");
+
+    	enquiry.setDepartment(website);
 
         return enquiryRepository.save(enquiry);
     }
