@@ -11,7 +11,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig {
 
@@ -23,13 +25,13 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable())
 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers(
-                    "/api/auth/**",
-                    "/api/enquiry",
-                    "/api/enquiries/**"
-                ).permitAll()
+            		 .requestMatchers(
+            			     "/api/auth/**",
+            			     "/api/enquiry",
+            			     "/api/enquiries/**"
+            			  ).permitAll()
 
-                .anyRequest().authenticated()
+             .anyRequest().authenticated()
             );
 
         return http.build();
