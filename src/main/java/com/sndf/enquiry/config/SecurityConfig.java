@@ -33,15 +33,17 @@ public class SecurityConfig {
 	    return http.build();
 	}
 
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
-        CorsConfiguration configuration = new CorsConfiguration();
+        CorsConfiguration configuration =
+                new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
+            "https://centralized-enquiry-admin.vercel.app",
             "https://www.detectiveinvestigation.in",
-            "https://detectiveinvestigation.in",
-            "https://centralized-enquiry-admin.vercel.app"
+            "http://localhost:3000"
         ));
 
         configuration.setAllowedMethods(List.of(
@@ -57,9 +59,12 @@ public class SecurityConfig {
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source =
-            new UrlBasedCorsConfigurationSource();
+                new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration(
+            "/**",
+            configuration
+        );
 
         return source;
     }
