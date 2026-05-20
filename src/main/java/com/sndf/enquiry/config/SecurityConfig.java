@@ -41,8 +41,10 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-            "https://centralized-enquiry-admin.vercel.app"
-        ));
+        	    "https://centralized-enquiry-admin.vercel.app",
+        	    "https://www.detectiveinvestigation.in",
+        	    "https://detectiveinvestigation.in"
+        	));
 
         configuration.setAllowedMethods(List.of(
             "GET",
