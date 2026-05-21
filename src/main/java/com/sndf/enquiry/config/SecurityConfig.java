@@ -67,10 +67,12 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-            "https://centralized-enquiry-admin.vercel.app",
-            "https://www.detectiveinvestigation.in",
-            "https://detectiveinvestigation.in"
-        ));
+        	    "https://centralized-enquiry-admin.vercel.app",
+        	    "https://www.detectiveinvestigation.in",
+        	    "https://detectiveinvestigation.in",
+        	    "https://www.sndfpunesecurity.in",
+        	    "https://sndfpunesecurity.in"
+        	));
 
         configuration.setAllowedMethods(List.of(
             "GET",
