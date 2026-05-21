@@ -82,4 +82,12 @@ public class EnquiryController {
                 role,
                 department);
     }
+    
+    
+    @DeleteMapping("/{id}")
+    public void deleteEnquiry(
+            @PathVariable Long id) {
+
+        enquiryService.deleteEnquiry(id);
+    }
 }

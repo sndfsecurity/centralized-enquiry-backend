@@ -84,4 +84,10 @@ public class EnquiryService {
     }
     
     
+    public void deleteEnquiry(Long id) {
+
+        enquiryRepository.deleteById(id);
+    }
+    
+    
 }

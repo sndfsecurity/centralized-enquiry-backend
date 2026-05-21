@@ -73,6 +73,7 @@ public class SecurityConfig {
         	    "https://detectiveinvestigation.in",
         	    "https://www.sndfpunesecurity.in",
         	    "https://sndfpunesecurity.in"
+        	   
         	));
 
         configuration.setAllowedMethods(List.of(
