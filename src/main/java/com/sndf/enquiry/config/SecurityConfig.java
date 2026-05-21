@@ -67,6 +67,7 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
+        		"http://localhost:3000",
         	    "https://centralized-enquiry-admin.vercel.app",
         	    "https://www.detectiveinvestigation.in",
         	    "https://detectiveinvestigation.in",
