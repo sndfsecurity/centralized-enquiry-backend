@@ -67,13 +67,13 @@ public class SecurityConfig {
                 new CorsConfiguration();
 
         configuration.setAllowedOrigins(List.of(
-        		"http://localhost:3000",
+        	    "http://localhost:3000",
         	    "https://centralized-enquiry-admin.vercel.app",
+        	    "https://adminpanel.sndfndf.com",
         	    "https://www.detectiveinvestigation.in",
         	    "https://detectiveinvestigation.in",
-        	    "https://www.sndfpunesecurity.in",
-        	    "https://sndfpunesecurity.in"
-        	   
+        	    "https://sndfpunesecurity.in",
+        	    "https://www.sndfpunesecurity.in"
         	));
 
         configuration.setAllowedMethods(List.of(
