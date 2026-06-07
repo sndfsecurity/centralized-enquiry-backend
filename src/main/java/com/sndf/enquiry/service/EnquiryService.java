@@ -446,13 +446,21 @@ public class EnquiryService {
             }
             
              
-            sheet.autoSizeColumn(0);
-            sheet.autoSizeColumn(1);
-            sheet.autoSizeColumn(2);
-            sheet.autoSizeColumn(3);
-            sheet.autoSizeColumn(4);
-            sheet.autoSizeColumn(5);
+//            sheet.autoSizeColumn(0);
+//            sheet.autoSizeColumn(1);
+//            sheet.autoSizeColumn(2);
+//            sheet.autoSizeColumn(3);
+//            sheet.autoSizeColumn(4);
+//            sheet.autoSizeColumn(5);
 
+            
+            sheet.setColumnWidth(0, 6000);
+            sheet.setColumnWidth(1, 5000);
+            sheet.setColumnWidth(2, 5000);
+            sheet.setColumnWidth(3, 6000);
+            sheet.setColumnWidth(4, 7000);
+            sheet.setColumnWidth(5, 7000);
+            
             ByteArrayOutputStream out =
                     new ByteArrayOutputStream();
 
