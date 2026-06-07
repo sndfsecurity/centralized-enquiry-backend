@@ -21,6 +21,10 @@ public class AuthService {
     public LoginResponse login(
             LoginRequest request) {
 
+    	System.out.println("USERNAME RECEIVED = " + request.getUsername());
+    	System.out.println(userRepository.findAll());
+    	
+    	
         User user = userRepository
                 .findByUsername(
                         request.getUsername())
