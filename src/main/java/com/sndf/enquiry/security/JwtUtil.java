@@ -1,8 +1,10 @@
 package com.sndf.enquiry.security;
 
 import java.security.Key;
+
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import io.jsonwebtoken.Claims;
@@ -15,6 +17,9 @@ public class JwtUtil {
 
     private final String SECRET =
             "mysupersecretkeymysupersecretkey";
+    
+    @Value("${jwt.expiration}")
+    private long expiration;
 
     private final Key key =
             Keys.hmacShaKeyFor(SECRET.getBytes());
@@ -32,9 +37,9 @@ public class JwtUtil {
                 .claim("department", department)
                 .setIssuedAt(new Date())
                 .setExpiration(
-                        new Date(
-                                System.currentTimeMillis()
-                                + 1000 * 60 * 60 * 10))
+                	    new Date(
+                	        System.currentTimeMillis()
+                	        + expiration))
                 .signWith(
                         key,
                         SignatureAlgorithm.HS256)
@@ -67,10 +72,5 @@ public class JwtUtil {
                 .parseClaimsJws(token)
                 .getBody();
     }
-    
-    
-    
-    
-    
-    
+       
 }

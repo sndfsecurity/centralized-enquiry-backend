@@ -1,9 +1,12 @@
 package com.sndf.enquiry.controller;
 
-import java.util.List;
+import java.util.HashMap;
 
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import com.sndf.enquiry.dto.StatusUpdateRequest;
@@ -11,6 +14,10 @@ import com.sndf.enquiry.entity.Enquiry;
 import com.sndf.enquiry.service.EnquiryService;
 
 import jakarta.servlet.http.HttpServletRequest;
+
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/enquiry")
@@ -66,21 +73,131 @@ public class EnquiryController {
     
     
     
+    
     @GetMapping("/my-enquiries")
-    public List<Enquiry> getMyEnquiries(
+    public Page<Enquiry> getMyEnquiries(
+
+            HttpServletRequest request,
+
+            @RequestParam(defaultValue = "0")
+            int page,
+
+            @RequestParam(defaultValue = "5")
+            int size,
+
+            @RequestParam(required = false)
+            String filterDepartment,
+            
+           
+            @RequestParam(defaultValue = "")
+            String search,
+    
+		    @RequestParam(defaultValue = "")
+		    String dateFilter) {
+    
+    
+        String role =
+                request.getAttribute("role")
+                        .toString();
+
+        String department =
+                request.getAttribute("department")
+                        .toString();
+        
+        return enquiryService.getMyEnquiries(
+                role,
+                department,
+                filterDepartment,
+                search,
+                dateFilter,
+                page,
+                size);
+    }
+    
+    
+    @GetMapping("/dashboard-stats")
+    public Map<String, Long> getDashboardStats(
             HttpServletRequest request) {
 
         String role =
                 request.getAttribute("role")
-                .toString();
+                       .toString();
 
         String department =
                 request.getAttribute("department")
-                .toString();
+                       .toString();
 
-        return enquiryService.getMyEnquiries(
-                role,
-                department);
+        Map<String, Long> stats =
+                new HashMap<>();
+
+        if (role.equals("SUPER_ADMIN")) {
+
+            stats.put(
+                    "totalEnquiries",
+                    enquiryService.getTotalEnquiries());
+
+            stats.put(
+                    "newEnquiries",
+                    enquiryService.getNewEnquiries());
+
+            stats.put(
+                    "departments",
+                    enquiryService.getDepartmentsCount());
+
+        } else {
+
+            stats.put(
+                    "totalEnquiries",
+                    enquiryService
+                            .getTotalEnquiriesByDepartment(
+                                    department));
+
+            stats.put(
+                    "newEnquiries",
+                    enquiryService
+                            .getNewEnquiriesByDepartment(
+                                    department));
+
+            stats.put(
+                    "departments",
+                    1L);
+        }
+
+        return stats;
+    }
+    
+    
+    // excel export ...........................
+    
+    @GetMapping("/export/excel")
+    public ResponseEntity<byte[]> exportExcel(
+
+            HttpServletRequest request,
+
+            @RequestParam(defaultValue = "")
+            String dateFilter) {
+
+        String role =
+                request.getAttribute("role")
+                       .toString();
+
+        String department =
+                request.getAttribute("department")
+                       .toString();
+
+        byte[] excelData =
+                enquiryService.exportToExcel(
+                        role,
+                        department,
+                        dateFilter);
+
+        return ResponseEntity.ok()
+                .header(
+                        HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=enquiries.xlsx")
+                .contentType(
+                        MediaType.APPLICATION_OCTET_STREAM)
+                .body(excelData);
     }
     
     

@@ -68,13 +68,22 @@ public class SecurityConfig {
 
         configuration.setAllowedOrigins(List.of(
         	    "http://localhost:3000",
+        	    "http://localhost:8080",
         	    "https://centralized-enquiry-admin.vercel.app",
         	    "https://adminpanel.sndfndf.com",
+
         	    "https://www.detectiveinvestigation.in",
         	    "https://detectiveinvestigation.in",
+
         	    "https://sndfpunesecurity.in",
-        	    "https://www.sndfpunesecurity.in"
+        	    "https://www.sndfpunesecurity.in",
+
+        	    "https://www.puneowlsecurity.in",
+        	    "https://puneowlsecurity.in",
+
+        	    "https://mumbai.detectiveinvestigation.in"
         	));
+        
 
         configuration.setAllowedMethods(List.of(
             "GET",
