@@ -51,7 +51,7 @@ public class EnquiryService {
         if (!duplicateEnquiries.isEmpty()) {
 
             throw new RuntimeException(
-                    "You have already submitted an enquiry for this service within the last 24 hours.");
+                    "You have already submitted an enquiry for this service.");
         }
 
         String website =

@@ -26,13 +26,6 @@ public class EnquiryController {
     @Autowired
     private EnquiryService enquiryService;
 
-//    @PostMapping
-//    public Enquiry saveEnquiry(
-//            @RequestBody Enquiry enquiry) {
-//
-//        return enquiryService.saveEnquiry(enquiry);
-//    }
-    
     
     @PostMapping
     public ResponseEntity<?> saveEnquiry(
