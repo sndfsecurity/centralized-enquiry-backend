@@ -31,18 +31,38 @@ public class EnquiryService {
     @Autowired
     private EnquiryRepository enquiryRepository;
     
-
     public Enquiry saveEnquiry(Enquiry enquiry) {
 
-    	String website = enquiry.getSourceWebsite();
+        enquiry.setMobileNumber(
+                enquiry.getMobileNumber().trim());
 
-    	website = website.replace("www.", "");
+        enquiry.setService(
+                enquiry.getService().trim());
 
-    	enquiry.setDepartment(website);
+        LocalDateTime twentyFourHoursAgo =
+                LocalDateTime.now().minusHours(24);
+
+        List<Enquiry> duplicateEnquiries =
+                enquiryRepository.findDuplicateEnquiry(
+                        enquiry.getMobileNumber(),
+                        enquiry.getService(),
+                        twentyFourHoursAgo);
+
+        if (!duplicateEnquiries.isEmpty()) {
+
+            throw new RuntimeException(
+                    "You have already submitted an enquiry for this service within the last 24 hours.");
+        }
+
+        String website =
+                enquiry.getSourceWebsite();
+
+        website = website.replace("www.", "");
+
+        enquiry.setDepartment(website);
 
         return enquiryRepository.save(enquiry);
     }
-    
     
    
     public List<Enquiry> getAllEnquiries() {

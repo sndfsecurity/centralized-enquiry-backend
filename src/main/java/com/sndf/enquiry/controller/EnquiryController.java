@@ -1,8 +1,6 @@
 package com.sndf.enquiry.controller;
 
 import java.util.HashMap;
-
-
 import java.util.List;
 import java.util.Map;
 
@@ -28,11 +26,30 @@ public class EnquiryController {
     @Autowired
     private EnquiryService enquiryService;
 
+//    @PostMapping
+//    public Enquiry saveEnquiry(
+//            @RequestBody Enquiry enquiry) {
+//
+//        return enquiryService.saveEnquiry(enquiry);
+//    }
+    
+    
     @PostMapping
-    public Enquiry saveEnquiry(
+    public ResponseEntity<?> saveEnquiry(
             @RequestBody Enquiry enquiry) {
 
-        return enquiryService.saveEnquiry(enquiry);
+        try {
+
+            return ResponseEntity.ok(
+                    enquiryService.saveEnquiry(
+                            enquiry));
+
+        } catch (RuntimeException e) {
+
+            return ResponseEntity
+                    .badRequest()
+                    .body(e.getMessage());
+        }
     }
     
 

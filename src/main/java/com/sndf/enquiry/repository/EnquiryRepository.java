@@ -2,6 +2,7 @@ package com.sndf.enquiry.repository;
 
 import java.util.List;
 
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -96,6 +97,19 @@ public interface EnquiryRepository
     List<Enquiry> findByDepartmentAndCreatedAtAfter(
             String department,
             LocalDateTime date);
+    
+    
+    @Query("""
+    	       SELECT e
+    	       FROM Enquiry e
+    	       WHERE e.mobileNumber = :mobileNumber
+    	       AND LOWER(e.service) = LOWER(:service)
+    	       AND e.createdAt >= :timeLimit
+    	       """)
+    	List<Enquiry> findDuplicateEnquiry(
+    	        @Param("mobileNumber") String mobileNumber,
+    	        @Param("service") String service,
+    	        @Param("timeLimit") LocalDateTime timeLimit);
    
     
 }
