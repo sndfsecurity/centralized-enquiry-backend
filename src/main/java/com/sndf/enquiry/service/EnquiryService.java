@@ -61,6 +61,8 @@ public class EnquiryService {
 
         enquiry.setDepartment(website);
 
+        System.out.println("Current Time : " + LocalDateTime.now());
+        
         return enquiryRepository.save(enquiry);
     }
     

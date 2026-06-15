@@ -26,7 +26,9 @@ public class Enquiry {
 
     private String status = "NEW";
 
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private LocalDateTime createdAt =
+            LocalDateTime.now(
+                    java.time.ZoneId.of("Asia/Kolkata"));
     
     private String department;
 
